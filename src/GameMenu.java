@@ -20,30 +20,10 @@ public class GameMenu extends Application {
         Font sketchfont = loadFont("/fonts/Bungee-Regular.ttf", 32);
         titleLabel.setFont(sketchfont);
 
-
-        // Create Start Button
-        Button startGameButton = new Button("Start Game");
-
-        // Create Input Questions Button
-        Button inputQuestionsButton = new Button("Input Study Questions");
-
-        // Create Exit Game Button
-        Button exitButton = new Button("Exit Game");
-
-
-        // Define Shared button style
-        String buttonStyle = "-fx-font-family: 'Monospaced'; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #FFA07A;";
-        startGameButton.setStyle(buttonStyle);
-        inputQuestionsButton.setStyle(buttonStyle);
-        exitButton.setStyle(buttonStyle);
-
         // Create the scene
         primaryStage.setScene(createMainScene(primaryStage));
         primaryStage.setTitle("Go Study!");
         primaryStage.show();
-        MediaView mediaView = createBackgroundVideo("resources/pokemon_bg.mp4");
-
-
     }
 
     private Scene createMainScene(Stage primaryStage) {
