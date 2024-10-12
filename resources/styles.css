@@ -1,0 +1,39 @@
+/* styles.css */
+
+/* Style for buttons */
+.button {
+    -fx-background-color: #FFA07A;
+    -fx-font-family: 'Monospaced';
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+/* Style for buttons */
+.exit-button {
+    -fx-background-color: #FFA07A;
+    -fx-font-family: 'Monospaced';
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
+}
+
+
+/* Style for labels with the title style */
+.title-label {
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, black, 2, 0.5, 1, 1);
+    -fx-padding: 10px;
+}
+
+/* Style for error messages */
+.error-label {
+    -fx-text-fill: red;
+    -fx-font-family: 'Monospaced';
+    -fx-font-weight: bold;
+}
+
+/* Style for success messages */
+.success-label {
+    -fx-text-fill: green;
+    -fx-font-family: 'Monospaced';
+    -fx-font-weight: bold;
+}
