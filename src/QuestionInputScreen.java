@@ -34,8 +34,9 @@ public class QuestionInputScreen {
 
         // Create input fields
         TextField questionField = createInputField("Enter your question here");
+        questionField.getStyleClass().add("input-field");
         TextField answerField = createInputField("Enter the corresponding answer");
-
+        answerField.getStyleClass().add("input-field");
         // Create fields for deleting questions
         TextField questionIndexField = createInputField("Enter question number to delete");
         questionIndexField.setVisible(false); // set the text field for deleting a question to hidden initially
@@ -107,8 +108,6 @@ public class QuestionInputScreen {
     // Helper method to create a title label
     private Label createTitleLabel(String text) {
         Label titleLabel = new Label(text);
-        Font inputFont = loadFont("/fonts/Bungee-Regular.ttf", 32);
-        titleLabel.setFont(inputFont);
         titleLabel.getStyleClass().add("title-label");
         return titleLabel;
     }

@@ -1,16 +1,16 @@
 import javafx.application.Application;
 import javafx.scene.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.*;
 import javafx.scene.media.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameMenu extends Application {
+public class GameLauncher extends Application {
 
     // Constant variables to hold the background video and font for titles
     private static final String VIDEO_PATH = "resources/pokemon_bg.mp4";
-    private static final String FONT_PATH = "/fonts/Bungee-Regular.ttf";
 
     // Store questions and answers
     private final List<String> questions = new ArrayList<>();
@@ -27,10 +27,9 @@ public class GameMenu extends Application {
         MediaView mediaView = VideoUtils.createBackgroundVideo(VIDEO_PATH);
         MainMenuBuilder menuBuilder = new MainMenuBuilder();
         VBox menuBox = menuBuilder.createMainMenu(
-                e -> startGame(),
+                e -> primaryStage.setScene(createCharacterSelectionScene(primaryStage)),
                 e -> primaryStage.setScene(createInputScene(primaryStage)),
-                e -> exitGame(primaryStage),
-                FontUtils.loadFont(FONT_PATH, 32)
+                e -> exitGame(primaryStage)
         );
 
         // Create a StackPane to layer the video background and the inputBox
@@ -57,9 +56,17 @@ public class GameMenu extends Application {
         //   primaryStage back to the main menu scene created by 'createMainScene(primaryStage)'.
         return inputScreen.createQuestionInputScene(primaryStage, e -> primaryStage.setScene(createMainScene(primaryStage)));
     }
+    private Scene createCharacterSelectionScene(Stage primaryStage) {
+        CharacterScreen characterScreen = new CharacterScreen();
+        return characterScreen.createCharacterSelectionScene(
+                primaryStage,
+                e -> primaryStage.setScene(createMainScene(primaryStage)) // Go back to the main menu
+        );
+    }
 
     private void startGame() {
         System.out.println("Starting the game...");
+
     }
 
     private void exitGame(Stage stage) {
@@ -69,5 +76,6 @@ public class GameMenu extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        Font.getFamilies().forEach(System.out::println);
     }
 }

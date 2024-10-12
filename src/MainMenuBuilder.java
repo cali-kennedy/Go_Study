@@ -7,11 +7,10 @@ import javafx.scene.text.Font;
 public class MainMenuBuilder {
     public VBox createMainMenu(EventHandler<ActionEvent> startAction,
                                EventHandler<ActionEvent> inputAction,
-                               EventHandler<ActionEvent> exitAction,
-                               Font titleFont) {
+                               EventHandler<ActionEvent> exitAction) {
 
         Label titleLabel = new Label("< G O   S t u d y ! >");
-        titleLabel.setFont(titleFont);
+
         titleLabel.getStyleClass().add("title-label");
 
         Button startGameButton = new Button("Start Game");
