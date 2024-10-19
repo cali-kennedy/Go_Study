@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -15,7 +17,7 @@ public class GameLauncher extends Application {
     // Store questions and answers
     private final List<String> questions = new ArrayList<>();
     private final List<String> answers = new ArrayList<>();
-
+    private String selectedCharacter;
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setScene(createMainScene(primaryStage));
@@ -43,6 +45,17 @@ public class GameLauncher extends Application {
 
         return scene;
     }
+    private Scene createCharacterSelectionScene(Stage primaryStage) {
+        CharacterScreen characterScreen = new CharacterScreen();
+        return characterScreen.createCharacterSelectionScene(
+                primaryStage,
+                e -> primaryStage.setScene(createMainScene(primaryStage)), // Back to menu action
+                e -> {
+                    selectedCharacter = characterScreen.getSelectedCharacter(); // Get selected character
+                    primaryStage.setScene(createMapScene(primaryStage)); // Transition to map screen
+                }
+        );}
+
 
 
     private Scene createInputScene(Stage primaryStage) {
@@ -56,18 +69,13 @@ public class GameLauncher extends Application {
         //   primaryStage back to the main menu scene created by 'createMainScene(primaryStage)'.
         return inputScreen.createQuestionInputScene(primaryStage, e -> primaryStage.setScene(createMainScene(primaryStage)));
     }
-    private Scene createCharacterSelectionScene(Stage primaryStage) {
-        CharacterScreen characterScreen = new CharacterScreen();
-        return characterScreen.createCharacterSelectionScene(
-                primaryStage,
-                e -> primaryStage.setScene(createMainScene(primaryStage)) // Go back to the main menu
-        );
+
+
+    private Scene createMapScene(Stage primaryStage) {
+        MapScreen mapScreen = new MapScreen(selectedCharacter);
+        return mapScreen.createMapScene(primaryStage);
     }
 
-    private void startGame() {
-        System.out.println("Starting the game...");
-
-    }
 
     private void exitGame(Stage stage) {
         System.out.println("Exiting the game...");
@@ -76,6 +84,5 @@ public class GameLauncher extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        Font.getFamilies().forEach(System.out::println);
     }
 }

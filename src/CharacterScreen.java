@@ -19,24 +19,24 @@ public class CharacterScreen {
         // Constructor can be used for initializing any data if needed.
     }
 
-    public Scene createCharacterSelectionScene(Stage primaryStage, EventHandler<ActionEvent> backToMenuAction) {
+    public Scene createCharacterSelectionScene(Stage primaryStage,
+                                               EventHandler<ActionEvent> backToMenuAction,
+                                               EventHandler<ActionEvent> confirmSelectionAction) {
         MediaView mediaView = VideoUtils.createBackgroundVideo("resources/pokemon_bg.mp4");
         VBox characterBox = createCharacterBox();
         Label titleLabel = createTitleLabel("Select Your Character");
         Label selectedCharacterLabel = new Label();
         selectedCharacterLabel.getStyleClass().add("selectedCharacter-label");
 
-
         // Create a button to confirm the selection and proceed
-        Button confirmButton = createConfirmButton(primaryStage, selectedCharacterLabel);
+        Button confirmButton = createConfirmButton(primaryStage, selectedCharacterLabel, confirmSelectionAction);
         Button backButton = createBackButton(backToMenuAction);
 
         // Create character selection buttons
-        Button character1Button = createCharacterButton("Character 1", "/characters/soot.png", selectedCharacterLabel);
+        Button character1Button = createCharacterButton("Soot", "/characters/soot.png", selectedCharacterLabel);
+        Button character2Button = createCharacterButton("Calcifer", "/characters/calcifer.png", selectedCharacterLabel);
 
-
-
-        HBox characterSelectionBox = new HBox(20, character1Button);
+        HBox characterSelectionBox = new HBox(20, character1Button, character2Button);
         characterSelectionBox.setStyle("-fx-alignment: center; -fx-padding: 20;");
 
         // Add components to the layout
@@ -74,7 +74,9 @@ public class CharacterScreen {
         });
         return characterButton;
     }
-
+    public String getSelectedCharacter() {
+        return selectedCharacter;
+    }
     private ImageView createCharacterImage(String imagePath) {
         Image image = new Image(getClass().getResourceAsStream(imagePath));
         ImageView imageView = new ImageView(image);
@@ -83,13 +85,13 @@ public class CharacterScreen {
         return imageView;
     }
 
-    private Button createConfirmButton(Stage primaryStage, Label selectedCharacterLabel) {
+    private Button createConfirmButton(Stage primaryStage, Label selectedCharacterLabel, EventHandler<ActionEvent> confirmSelectionAction) {
         Button confirmButton = new Button("Confirm Selection");
         confirmButton.getStyleClass().add("button");
         confirmButton.setOnAction(e -> {
             if (selectedCharacter != null) {
                 System.out.println("Character confirmed: " + selectedCharacter);
-                // Proceed to the next part of the game, e.g., start the game scene
+                confirmSelectionAction.handle(e); // Invoke the confirm action
             } else {
                 selectedCharacterLabel.setText("Please select a character.");
                 selectedCharacterLabel.getStyleClass().add("error-label");
@@ -97,6 +99,10 @@ public class CharacterScreen {
         });
         return confirmButton;
     }
+
+
+
+
 
     private Button createBackButton(EventHandler<ActionEvent> backToMenuAction) {
         Button backButton = new Button("Back to Main Menu");
